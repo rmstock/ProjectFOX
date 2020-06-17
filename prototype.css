@@ -1,0 +1,140 @@
+/*This is for the Project FOX Prototype*/
+
+/**********************************************************************************
+* CSS Table of Contents
+* 1. Imports
+* 2. General & Mobile Style Control
+* 3. Tablet/Laptop Style Control
+**********************************************************************************/
+
+/*********************************************************************************
+* 1. Imports
+*********************************************************************************/
+
+/*Download Sansita font from google fonts*/
+
+@import url('https://fonts.googleapis.com/css?family=Sansita');
+
+
+/*********************************************************************************
+* 2. General Style/ Mobile Style - This styling applies to everything.
+* This is where nearly all of the formatting goes to make things look the way
+* we want. Color control, text size control, box shape, column flow, etc.
+*********************************************************************************/
+
+/* Use helvetica, if not have it, use arial, if not have it, use default sans serif font. */
+
+body {
+    font-family: helvetica, arial, sans-serif;
+    font-size: 20px;
+    margin: 0;
+    /* remove any margin or padding from body */
+    padding: 0;
+    background-color: #ffffff;
+    /* white color */
+}
+
+/*This gives the black background, and a margin to replicate a tablet*/
+
+#wraper {
+    height: 6in;
+    display: flex;
+    flex-flow: column;
+    background-color: #000000;
+    /* black color */
+    margin-left: 4vw;
+    margin-right: 4vw;
+    margin-bottom: 4vw;
+    margin-top: 4vw;
+}
+
+/*This is the gray menu bar across the screen with a little extra gray on top and bottom of text area.*/
+
+#navigation {
+    background-color: #A9A9A9;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    list-style: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 1vw;
+    padding-top: 1vw;
+
+}
+
+#navigation ul li {
+    padding-right: 2vw;
+    padding-left: 2vw;
+    color: #000000;
+    display: flex;
+    font-size: 3vw;
+}
+
+#navigation ul {
+    display: flex;
+    margin: 0;
+    width: 100%;
+    justify-content: space-between;
+    padding-inline-start: 0px;
+}
+
+#navigation li:hover {
+    background-color: #ffffff;
+    color: #de2226;
+}
+
+/* Table is where all the tracks are listed */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Table Row gets a line to divide it from other rows */
+
+tr {
+    border-bottom: 2px solid;
+    border-bottom-color: blue;
+    color: white;
+    /* White text default, javascript for color changes*/
+}
+
+#scrollbar {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+button {
+    border: solid;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: black;
+    display: inline-block;
+}
+
+
+/*********************************************************************************
+* 3. Large Screen Styles - CSS specific to look great on a laptop/ large tablet
+*********************************************************************************/
+
+/*this is css pixels, not device pixels */
+
+@media screen and (min-width: 760px) {
+
+    #navigation ul li {
+        padding-right: 2vw;
+        color: #000000;
+        display: flex;
+        font-size: 1.5em;
+    }
+
+}
