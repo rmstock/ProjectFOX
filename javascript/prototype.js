@@ -77,6 +77,7 @@ function FIXActive() {
 
 // Add a listener for a row
 function addListenersTableRows(row) {
+    console.log("in the listener! " + row);
     window.addEventListener('load', function(e){
         var doc = document.getElementById(row);
         var startx = 0;
@@ -150,4 +151,63 @@ function pinRowSwipe(rowID) {
 // Click on push pin to pin row
 function pinRowClick(clickedID) {
     document.getElementById(clickedID).classList.toggle("pinned");
+}
+
+// DEBUG STUFF
+
+// Random number from 0 to 1 - max, converted to a string
+function getRandomNumberString(max) {
+    var out = Math.floor(Math.random() * Math.floor(max));
+    return out.toString(10);
+}
+
+// We may be able to use this when we are automatically/dynamically creating
+// table rows in the future, but for right now it is just a debug helper
+debug_add_row.counter = 6; // "static" counter var for the table row number
+function debug_add_row()
+{
+    var table = document.getElementById("main-table");
+    var row = table.insertRow(-1); // -1 to append to the end of the table
+    row.setAttribute("id", "table-row-" + debug_add_row.counter.toString(10));
+    row.setAttribute("class", "swipe-able-row");
+    var cell0 = row.insertCell(-1);
+    var deleteButton = document.createElement("BUTTON");
+    deleteButton.setAttribute("class", "delete-icon icon");
+    deleteButton.setAttribute("onclick", "deleteRowClick(this)");
+    cell0.appendChild(deleteButton);
+    var cell1 = row.insertCell(-1);
+    cell1.innerHTML = getRandomNumberString(24)
+        + ":" + getRandomNumberString(60)
+        + ":" + getRandomNumberString(60);
+    var cell2 = row.insertCell(-1);
+    cell2.innerHTML = getRandomNumberString(100);
+    var cell3 = row.insertCell(-1);
+    cell3.innerHTML = getRandomNumberString(1000)
+        + "/" + getRandomNumberString(100);
+    var cell4 = row.insertCell(-1);
+    cell4.innerHTML = "PBJ";
+    var cell5 = row.insertCell(-1);
+    var fixButton = document.createElement("BUTTON");
+    fixButton.setAttribute("class", "buttonGroup");
+    fixButton.setAttribute("id", "FIX" + debug_add_row.counter.toString(10));
+    fixButton.setAttribute("onclick", "FIXActive()");
+    fixButton.innerHTML = "FIX";
+    fixButton.style.fontWeight = "bold";
+    cell5.appendChild(fixButton);
+    var cell6 = row.insertCell(-1);
+    var killButton = document.createElement("BUTTON");
+    killButton.setAttribute("class", "buttonGroup");
+    killButton.setAttribute("id", "KILL" + debug_add_row.counter.toString(10));
+    killButton.setAttribute("onclick", "KILLActive()");
+    killButton.innerHTML = "KILL";
+    killButton.style.fontWeight = "bold";
+    cell6.appendChild(killButton);
+    var cell7 = row.insertCell(-1);
+    var pinButton = document.createElement("BUTTON");
+    pinButton.setAttribute("id", "pin-button-" + debug_add_row.counter.toString(10));
+    pinButton.setAttribute("class", "pin-icon icon");
+    pinButton.setAttribute("onclick", "pinRowClick(this.id)");
+    cell7.appendChild(pinButton);
+    addListenersTableRows('table-row-' + debug_add_row.counter.toString(10));
+    debug_add_row.counter++;
 }

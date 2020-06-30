@@ -97,9 +97,6 @@ tr {
 #scrollbar {
     overflow-y: scroll;
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
 }
 
 button {
@@ -137,6 +134,27 @@ button:hover {
 
 .pinned {
     background-image: url('../images/yellow_push_pin.png')
+}
+
+#ADD_ROW {
+    border: solid;
+    border-color: black;
+    color: white;
+    style: bold;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 10px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: darkgreen;
+}
+
+#DEBUG_DIV {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: 10px;
 }
 
 /*******************************************************************************

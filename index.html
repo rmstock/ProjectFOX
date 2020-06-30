@@ -26,8 +26,9 @@
             </nav>
             <main>
                 <div id="scrollbar">
-                    <!-- The table rows are hardcoded here temporarily.
-                         They eventually will be dynamically created and updated from backend messages.
+                    <!-- A few of the table rows are hardcoded here temporarily.
+                         They eventually will be dynamically created from backend messages.
+                         Right now we can dynamcally create random rows.
                          We need to write JavaScript to handle populating the table from the messages recieved.
                          tr are table rows, td are table data elements. -->
                     <table id="main-table">
@@ -82,6 +83,10 @@
                             <td><button id="pin-button-5" class="pin-icon icon" onclick="pinRowClick(this.id)"></td>
                         </tr>
                     </table>
+                    <div id="DEBUG_DIV">
+                        <button id="ADD_ROW" class="DEBUG_CLASS" onclick="debug_add_row()" type="button">DEBUG +1 row</button>
+                        DEBUG notes: <b>ctrl-r</b> to reload page <b>f11</b> to toggle full screen
+                    </div>
                 </div>
             </main>
             <script src="../ProjectFOX/javascript/prototype.js"></script>
