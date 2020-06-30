@@ -4,14 +4,14 @@ getData(JSONDATA);
 
 // Send JsonData
 function getData(data) {
-    fetch(data)
+    /*fetch(data)
         .then(response => response.json())
         .then(function (data) {
         console.log('Json object from getData function:');
         console.log(data);
         makeTable(data);
     })
-        .catch(error => console.log('There was an error: ', error))
+        .catch(error => console.log('There was an error: ', error))*/
 } // end getData function
 
 // Insert Table of Tracks Data. (Not working right now)
@@ -75,12 +75,79 @@ function FIXActive() {
     document.getElementById("FIX1").style.color = "black";
 }
 
-// Click on trash can to delete rows
-function deleteRow() {
-    document.getElementById("main-table").deleteRow(0);
+// Add a listener for a row
+function addListenersTableRows(row) {
+    window.addEventListener('load', function(e){
+        var doc = document.getElementById(row);
+        var startx = 0;
+        var dist = 0;
+        doc.addEventListener('touchstart', function(e) {
+            var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+            startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+            e.preventDefault();
+        }, false);
+        doc.addEventListener('touchmove', function(e) {
+            var touchobj = e.changedTouches[0]; // reference first touch point for this event
+            dist = parseInt(touchobj.clientX) - startx;
+            fadeWithSwipe(doc, dist);
+            e.preventDefault();
+        }, false);
+        doc.addEventListener('touchend', function(e) {
+            doc.style.backgroundColor = "black";
+            var touchobj = e.changedTouches[0]; // reference first touch point for this event
+            dist = parseInt(touchobj.clientX) - startx;
+            if(dist > 200) {
+              pinRowSwipe(row);
+            } else if (dist < -200) {
+              deleteRowSwipe(doc);
+            }
+            e.preventDefault();
+        }, false);
+    }, false);
 }
 
-// Click on push pin to pin a row
-function pinRow(clickedID) {
+// TODO
+// this should be dynamically created
+// and newly created when a new row is added
+addListenersTableRows('table-row-1');
+addListenersTableRows('table-row-2');
+addListenersTableRows('table-row-3');
+addListenersTableRows('table-row-4');
+addListenersTableRows('table-row-5');
+
+// Transition the color as user swipes
+function fadeWithSwipe(row, distance) {
+    var newColor = '#'; // RGB
+    var hexString;
+    if(distance > 255) {
+      distance = 255;
+    }
+    hexString = Math.abs(distance).toString(16);
+    newColor += hexString;
+    if(distance > 0) { // yellow if swiping right
+      newColor += hexString;
+    } else { // red if swiping left
+      newColor += '00';
+    }
+    newColor += '00';
+    row.style.backgroundColor = newColor;
+}
+
+// Swipe left to delete row
+function deleteRowSwipe(row) {
+    row.parentNode.removeChild(row);
+}
+
+// Click on trash can to delete rows
+function deleteRowClick(button) {
+    deleteRowSwipe(button.parentNode.parentNode);
+}
+
+function pinRowSwipe(rowID) {
+    pinRowClick(rowID.replace('table-row', 'pin-button'));
+}
+
+// Click on push pin to pin row
+function pinRowClick(clickedID) {
     document.getElementById(clickedID).classList.toggle("pinned");
 }

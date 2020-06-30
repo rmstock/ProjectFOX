@@ -115,6 +115,10 @@ button {
     display: inline-block;
 }
 
+button:hover {
+    border-color: blue;
+}
+
 .icon, .delete-icon:hover {
     width: 50px;
     height: 54px;
@@ -131,7 +135,7 @@ button {
     background-image: url('../images/white_push_pin.png')
 }
 
-.pinned{
+.pinned {
     background-image: url('../images/yellow_push_pin.png')
 }
 
@@ -141,7 +145,6 @@ button {
 
 /*this is css pixels, not device pixels */
 @media screen and (min-width: 760px) {
-
     #navigation ul li {
         padding-right: 2vw;
         color: black;
