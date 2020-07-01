@@ -26,62 +26,67 @@
             </nav>
             <main>
                 <div id="scrollbar">
-                    <!-- The table rows are hardcoded here temporarily.
-                         They eventually will be dynamically created and updated from backend messages.
+                    <!-- A few of the table rows are hardcoded here temporarily.
+                         They eventually will be dynamically created from backend messages.
+                         Right now we can dynamcally create random rows.
                          We need to write JavaScript to handle populating the table from the messages recieved.
                          tr are table rows, td are table data elements. -->
                     <table id="main-table">
-                        <tr id="unique1" class="swipe-able-row">
-                            <td><button class="delete-icon icon" onclick="deleteRow()"></td>
+                        <tr id="table-row-1" class="swipe-able-row">
+                            <td><button class="delete-icon icon" onclick="deleteRowClick(this)"></td>
                             <td>timestamp</td>
                             <td>type</td>
                             <td>location</td>
                             <td>TLE</td>
-                            <div class="btn-group"><td><button id="FIX1" onclick="FIXActive()" type="button"><b>FIX</b></button></td>
+                            <div class="button-group"><td><button id="FIX1" onclick="FIXActive()" type="button"><b>FIX</b></button></td>
                             <td><button id="KILL1" onclick="KILLActive()"><b>KILL</b></button></td></div>
-                            <td><button id="pin-button-1" class="pin-icon icon" onclick="pinRow(this.id)"></td>
+                            <td><button id="pin-button-1" class="pin-icon icon" onclick="pinRowClick(this.id)"></td>
                         </tr>
-                        <tr id="unique2" class="swipe-able-row">
-                            <td><button class="delete-icon icon" onclick="deleteRow()"></td>
+                        <tr id="table-row-2" class="swipe-able-row">
+                            <td><button class="delete-icon icon" onclick="deleteRowClick(this)"></td>
                             <td>**on air**</td>
                             <td>10</td>
                             <td>222/22</td>
                             <td>feet</td>
                             <div><td><button id="FIX2" onclick="FIXActive()" type="button"><b>FIX</b></button></td></div>
                             <div><td><button id="KILL2" onclick="KILLActive()"><b>KILL</b></button></td></div>
-                            <td><button id="pin-button-2" class="pin-icon icon" onclick="pinRow(this.id)"></td>
+                            <td><button id="pin-button-2" class="pin-icon icon" onclick="pinRowClick(this.id)"></td>
                         </tr>
-                        <tr id="unique3" class="swipe-able-row">
-                            <td><button class="delete-icon icon" onclick="deleteRow()"></td>
+                        <tr id="table-row-3" class="swipe-able-row">
+                            <td><button class="delete-icon icon" onclick="deleteRowClick(this)"></td>
                             <td> 21:06:12 </td>
                             <td>22</td>
                             <td>555/55</td>
                             <td>nm</td>
-                            <div class="btn-group"><td><button id="FIX3" onclick="FIXActive()" type="button"><b>FIX</b></button></td>
+                            <div class="button-group"><td><button id="FIX3" onclick="FIXActive()" type="button"><b>FIX</b></button></td>
                                 <td><button id="KILL3" onclick="KILLActive()"><b>KILL</b></button></td></div>
-                            <td><button id="pin-button-3" class="pin-icon icon" onclick="pinRow(this.id)"></td>
+                            <td><button id="pin-button-3" class="pin-icon icon" onclick="pinRowClick(this.id)"></td>
                         </tr>
-                        <tr id= "unique4" class="swipe-able-row">
-                            <td><button class="delete-icon icon" onclick="deleteRow()"></td>
+                        <tr id= "table-row-4" class="swipe-able-row">
+                            <td><button class="delete-icon icon" onclick="deleteRowClick(this)"></td>
                             <td>time</td>
                             <td>15</td>
                             <td>358145</td>
                             <td>nm</td>
                             <div><td><button id="FIX4" onclick="FIXActive()" type="button"><b>FIX</b></button></td></div>
                             <div><td><button id="KILL4" onclick="KILLActive()"><b>KILL</b></button></td></div>
-                            <td><button id="pin-button-4" class="pin-icon icon" onclick="pinRow(this.id)"></td>
+                            <td><button id="pin-button-4" class="pin-icon icon" onclick="pinRowClick(this.id)"></td>
                         </tr>
-                        <tr id="unique5" class="swipe-able-row">
-                            <td><button class="delete-icon icon" onclick="deleteRow()"></td>
+                        <tr id="table-row-5" class="swipe-able-row">
+                            <td><button class="delete-icon icon" onclick="deleteRowClick(this)"></td>
                             <td>time</td>
                             <td>2</td>
                             <td>333/44</td>
                             <td>20'</td>
-                            <div class="btn-group"><td><button id="FIX5" onclick="FIXActive()" type="button"><b>FIX</b></button></td>
+                            <div class="button-group"><td><button id="FIX5" onclick="FIXActive()" type="button"><b>FIX</b></button></td>
                                 <td><button id="KILL5" onclick="KILLActive()"><b>KILL</b></button></td></div>
-                            <td><button id="pin-button-5" class="pin-icon icon" onclick="pinRow(this.id)"></td>
+                            <td><button id="pin-button-5" class="pin-icon icon" onclick="pinRowClick(this.id)"></td>
                         </tr>
                     </table>
+                    <div id="DEBUG_DIV">
+                        <button id="ADD_ROW" class="DEBUG_CLASS" onclick="debug_add_row()" type="button">DEBUG +1 row</button>
+                        DEBUG notes: <b>ctrl-r</b> to reload page <b>f11</b> to toggle full screen
+                    </div>
                 </div>
             </main>
             <script src="../ProjectFOX/javascript/prototype.js"></script>
