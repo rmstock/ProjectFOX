@@ -10,6 +10,16 @@ function FIXActive(){
     document.getElementById("FIX1").style.color = "black";
 }
 
+// Click on trash can to delete rows
+function deleteRow() {
+    document.getElementById("main-table").deleteRow(0);
+}
+
+// Click on push pin to pin a row
+function pinRow(clickedID) {
+    document.getElementById(clickedID).classList.toggle("pinned");
+}
+
 //Next two lines ensure the console works.
 /*global console*/
 /* eslint no-console: "off" */
