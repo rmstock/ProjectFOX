@@ -4,18 +4,22 @@ getData(JSONDATA);
 
 // Send JsonData
 function getData(data) {
-    /*fetch(data)
+    return; // FUNCTION NOT WORKING RIGHT NOW
+    // JUST GOING TO RETURN AND GET BACK TO STUFF THAT WORKS
+    fetch(data)
         .then(response => response.json())
         .then(function (data) {
         console.log('Json object from getData function:');
         console.log(data);
         makeTable(data);
     })
-        .catch(error => console.log('There was an error: ', error))*/
+        .catch(error => console.log('There was an error: ', error))
 } // end getData function
 
 // Insert Table of Tracks Data. (Not working right now)
 function makeTable(data) {
+    return; // FUNCTION NOT WORKING RIGHT NOW
+    // JUST GOING TO RETURN AND GET BACK TO STUFF THAT WORKS
     // Log what is returned
     console.log(data);
     // Build table elements
@@ -35,7 +39,8 @@ function makeTable(data) {
 // (Not working right now)
 const navbar = document.getElementById("navigation");
 navbar.addEventListener("click", function (event) {
-
+    return; // FUNCTION NOT WORKING RIGHT NOW
+    // JUST GOING TO RETURN AND GET BACK TO STUFF THAT WORKS
     let content = event.target.innerHTML;
     console.log(content);
     if (content != "ALL") {
@@ -75,48 +80,70 @@ function FIXActive() {
     document.getElementById("FIX1").style.color = "black";
 }
 
-// Add a listener for a row
+// add a listener for a row
 function addListenersTableRows(row) {
-    console.log("in the listener! " + row);
-    window.addEventListener('load', function(e){
-        var doc = document.getElementById(row);
+    var doc = document.getElementById(row);
+    // remove the old one before creating a new one
+    doc.removeEventListener('click', function(e) {
+        doc.removeEventListener('touchstart', null);
+        doc.removeEventListener('touchmove', null);
+        doc.removeEventListener('touchend', null);
+    }, false);
+    doc.addEventListener('click', function(e) {
+        var feedback = document.getElementById("TOUCH_FEEDBACK"); // DEBUG
         var startx = 0;
-        var dist = 0;
+        var starty = 0;
+        var distx = 0;
+        var disty = 0;
+        var endx = 0;
+        var vpw = window.innerWidth; // viewport width
         doc.addEventListener('touchstart', function(e) {
             var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
             startx = parseInt(touchobj.clientX); // get x position of touch point relative to left edge of browser
+            starty = parseInt(touchobj.clientY); // get y position of touch point relative to top edge of browser
+            updateTouchFeedback(feedback, startx, distx, endx, starty, disty); // DEBUG
             e.preventDefault();
         }, false);
         doc.addEventListener('touchmove', function(e) {
             var touchobj = e.changedTouches[0]; // reference first touch point for this event
-            dist = parseInt(touchobj.clientX) - startx;
-            fadeWithSwipe(doc, dist);
+            distx = parseInt(touchobj.clientX) - startx;
+            fadeWithSwipe(doc, distx);
+            disty = parseInt(touchobj.clientY) - starty;
+            scroll(disty);
+            updateTouchFeedback(feedback, startx, distx, endx, starty, disty); // DEBUG
             e.preventDefault();
         }, false);
         doc.addEventListener('touchend', function(e) {
             doc.style.backgroundColor = "black";
+            document.getElementById("navigation").style.borderBottom = "2px solid darkgray";
+            document.getElementById("main-table").style.borderBottom = "2px solid black";
             var touchobj = e.changedTouches[0]; // reference first touch point for this event
-            dist = parseInt(touchobj.clientX) - startx;
-            if(dist > 200) {
-              pinRowSwipe(row);
-            } else if (dist < -200) {
-              deleteRowSwipe(doc);
+            distx = parseInt(touchobj.clientX) - startx;
+            endx = startx + distx;
+            if(distx > 200) {
+                pinRowSwipe(row);
+            } else if (distx < -200) {
+                deleteRowSwipe(doc);
+            } else if ((startx < 80) && (endx < 80) && (distx < 50)) {
+                deleteRowSwipe(doc);
+            } else if ((startx > (vpw - 80)) && (endx > (vpw - 80)) && (distx < 50)) {
+                pinRowSwipe(row);
             }
+            updateTouchFeedback(feedback, startx, distx, endx, starty, disty); // DEBUG
             e.preventDefault();
         }, false);
     }, false);
 }
 
-// TODO
-// this should be dynamically created
-// and newly created when a new row is added
+// these are dynamically created when a row is added
+// just have to call them manually for the hardcoded ones
 addListenersTableRows('table-row-1');
 addListenersTableRows('table-row-2');
 addListenersTableRows('table-row-3');
 addListenersTableRows('table-row-4');
 addListenersTableRows('table-row-5');
 
-// Transition the color as user swipes
+// transition the color as user swipes
 function fadeWithSwipe(row, distance) {
     var newColor = '#'; // RGB
     var hexString;
@@ -134,21 +161,45 @@ function fadeWithSwipe(row, distance) {
     row.style.backgroundColor = newColor;
 }
 
-// Swipe left to delete row
+scroll.prevDist = 0; // "static" var for the previous distance
+scroll.prevY = 0; // "static" var for the previous scroll Y
+// swipe vertical to scroll
+function scroll(distance) {
+    if((distance > -10) && (distance < 10)) {
+        scroll.prevDist = 0;
+    }
+    window.scrollBy(0, scroll.prevDist - distance);
+    if(scroll.prevY == window.scrollY) {
+        if(distance > 0) {
+            document.getElementById("navigation").style.borderBottom = "3px solid red";
+        } else {
+            document.getElementById("main-table").style.borderBottom = "3px solid red";
+        }
+    } else {
+        document.getElementById("navigation").style.borderBottom = "2px solid darkgray";
+        document.getElementById("main-table").style.borderBottom = "2px solid black";
+    }
+    scroll.prevDist = distance;
+    scroll.prevY = window.scrollY;
+}
+
+// swipe left to delete row
 function deleteRowSwipe(row) {
     row.parentNode.removeChild(row);
 }
 
-// Click on trash can to delete rows
+// click on trash can to delete rows
 function deleteRowClick(button) {
     deleteRowSwipe(button.parentNode.parentNode);
 }
 
+// swipe right to pin row
 function pinRowSwipe(rowID) {
+    console.log("in the pinner! ");
     pinRowClick(rowID.replace('table-row', 'pin-button'));
 }
 
-// Click on push pin to pin row
+// click on push pin to pin row
 function pinRowClick(clickedID) {
     document.getElementById(clickedID).classList.toggle("pinned");
 }
@@ -210,6 +261,17 @@ function debug_add_row()
     cell7.appendChild(pinButton);
     addListenersTableRows('table-row-' + debug_add_row.counter.toString(10));
     debug_add_row.counter++;
+}
+
+function updateTouchFeedback(element, start, distance, end, starty, disty) {
+    element.innerHTML = (' ... vpw[' + window.innerWidth.toString(10)
+            + '] scrollY[' + window.scrollY.toString(10)
+            + ']... touch feedback: startX['
+            + start.toString(10) + '] distanceX['
+            + distance.toString(10) + '] endX['
+            + end.toString(10) + '] startY['
+            + starty.toString(10) + '] distanceY['
+            + disty.toString(10) + ']');
 }
 
 //Next two lines ensure the console works.

@@ -3,8 +3,8 @@
 /*******************************************************************************
 * CSS Table of Contents
 * 1. Imports
-* 2. General & Mobile Style Control
-* 3. Tablet/Laptop Style Control
+* 2. General Style Control
+* 3. Special Style Control
 *******************************************************************************/
 
 /*******************************************************************************
@@ -20,51 +20,51 @@
 * we want. Color control, text size control, box shape, column flow, etc.
 *******************************************************************************/
 
-/* Use helvetica,
-   if not available, use arial,
-   if not available, use default sans serif font */
 body {
+    /* Use helvetica, else use arial, else use default sans serif */
     font-family: helvetica, arial, sans-serif;
     font-size: 20px;
-    margin: 0;
     /* remove any margin or padding from body */
+    margin: 0;
     padding: 0;
-    background-color: white;
+    background-color: black;
 }
 
-/*This gives the black background, and a margin to replicate a tablet*/
 #wrapper {
-    height: 6in;
+    /* flex to fill available space */
     display: flex;
     flex-flow: column;
-    background-color: black;
-    margin-left: 4vw;
-    margin-right: 4vw;
-    margin-bottom: 4vw;
-    margin-top: 4vw;
+    margin: 0;
 }
 
-/* This is the gray menu bar across the screen with
-   a little extra gray on top and bottom of text area.*/
 #navigation {
     background-color: darkgray;
+    /* flex to fill available space */
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    /* don't put any bullets or numbers in front of the list items */
     list-style: none;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 1vw;
-    padding-top: 1vw;
-
+    padding: 10px;
+    /* sticky menu bar properties */
+    width: 100%;
+    position: fixed;
+    /* adding a transparant red bottom border for scroll visual feedback */
+    border-bottom: 2px solid;
+    border-bottom-color: #FF000000;
 }
 
 #navigation ul li {
-    padding-right: 2vw;
-    padding-left: 2vw;
-    color: black;
+    font-size: 30px;
+    padding-right: 10px;
+    padding-left: 10px;
+    /* justify-content: space-between was pushing everything too far right */
+    margin-right: 20px;
     display: flex;
-    font-size: 3vw;
+    /* invisible border so on hover everything stays the same size */
+    border-color: darkgray;
+    border-style: solid;
+    border-width: 2px;
 }
 
 #navigation ul {
@@ -76,27 +76,38 @@ body {
 }
 
 #navigation li:hover {
-    background-color: white;
-    color: crimson;
+    border-color: blue;
 }
 
-/* Table is where all the tracks are listed */
+/* table is where all the tracks are listed */
 table {
     width: 100%;
     border-collapse: collapse;
+    /* shift down the body to account for the fixed menu bar */
+    margin-top: 58px;
+    table-layout: fixed;
 }
 
-/* Table Row gets a line to divide it from other rows */
+/* table row gets a line to divide it from other rows */
 tr {
     border-bottom: 2px solid;
     border-bottom-color: blue;
-    color: white;
     /* white text default, javascript for color changes*/
+    color: white;
+}
+td {
+    /* the trash can was far left and the pin wasn't far right
+    this'll make it look better I think, any objections? -charles */
+    text-align: center;
 }
 
 #scrollbar {
-    overflow-y: scroll;
     display: flex;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 0px;
 }
 
 button {
@@ -139,7 +150,7 @@ button:hover {
 #ADD_ROW {
     border: solid;
     border-color: black;
-    color: white;
+    color: black;
     style: bold;
     padding: 5px;
     text-align: center;
@@ -147,26 +158,17 @@ button:hover {
     font-size: 10px;
     margin: 5px;
     cursor: pointer;
-    background-color: darkgreen;
-}
-
-#DEBUG_DIV {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    font-size: 10px;
+    background-color: lightgreen;
 }
 
 /*******************************************************************************
-* 3. Large Screen Styles - CSS specific to look great on a laptop/ large tablet
+* 3. Special Styles - CSS that won't be in production
 *******************************************************************************/
 
-/*this is css pixels, not device pixels */
-@media screen and (min-width: 760px) {
-    #navigation ul li {
-        padding-right: 2vw;
-        color: black;
-        display: flex;
-        font-size: 1.5em;
-    }
+#DEBUG_DIV {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    font-size: 10px;
+    color: lightgreen;
 }
