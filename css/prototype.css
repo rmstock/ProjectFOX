@@ -49,6 +49,9 @@ body {
     /* sticky menu bar properties */
     width: 100%;
     position: fixed;
+    /* adding a transparant red bottom border for scroll visual feedback */
+    border-bottom: 2px solid;
+    border-bottom-color: #FF000000;
 }
 
 #navigation ul li {
@@ -147,7 +150,7 @@ button:hover {
 #ADD_ROW {
     border: solid;
     border-color: black;
-    color: white;
+    color: black;
     style: bold;
     padding: 5px;
     text-align: center;
@@ -155,7 +158,7 @@ button:hover {
     font-size: 10px;
     margin: 5px;
     cursor: pointer;
-    background-color: darkgreen;
+    background-color: lightgreen;
 }
 
 /*******************************************************************************
@@ -167,5 +170,5 @@ button:hover {
     left: 10px;
     bottom: 10px;
     font-size: 10px;
-    color: white;
+    color: lightgreen;
 }
