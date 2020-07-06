@@ -1,0 +1,13 @@
+
+#target{
+	width: 500px; 
+	height: 350px;
+    overflow: hidden;
+    position: relative;
+}
+
+
+#target img{
+    transition: transform .5s ease;
+}
+
