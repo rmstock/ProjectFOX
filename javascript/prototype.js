@@ -76,7 +76,7 @@ function KILLActive() {
 
 // This works. When the pilot clicks the fix button, it turns that tracks fix button yellow. We need to relay this to the backend still. Need the tracks ID to sync with Fix# ID so only that one track button changes color.
 function FIXActive() {
-    document.getElementById("FIX1".style.backgroundColor = "yellow";
+    document.getElementById("FIX1").style.backgroundColor = "yellow";
     document.getElementById("FIX1").style.color = "black";
 }
 
