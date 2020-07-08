@@ -1,0 +1,39 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Multi Touch 
+  </title>
+  <meta name="description" content="Multi-Touch Attempt
+  ">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="style/styles.css">
+
+  <script src="js/touchZoomJS.js"></script> 
+
+</head>
+
+<body onload="init();" style="touch-action:none">
+  <div>
+  <br/>
+  </div>
+  
+  <br/><br/>
+
+  <div id="target" onmouseover="mouseStatus(true);" onmouseout="mouseStatus(false);">
+    <img src="images/map_image.jpg">
+  </div>
+
+  <br/><br/>
+
+  <!-- UI for logging/debugging -->
+  <button id="log" onclick="enableLog(event);">Start/Stop event logging</button>
+  <button id="clearlog" onclick="clearLog(event);">Clear the log</button>
+  <button id="changetesting" onclick="changeTesting();">Change to Gesture Testing</button>
+  <p></p>
+  <output></output>
+</body>
+</html>
