@@ -52,6 +52,7 @@ body {
     /* adding a transparant red bottom border for scroll visual feedback */
     border-bottom: 2px solid;
     border-bottom-color: #FF000000;
+    z-index: 2;
 }
 
 #navigation ul li {
@@ -79,25 +80,63 @@ body {
     border-color: blue;
 }
 
+.column {
+  float: left;
+}
+
+.left {
+  width: 93%;
+}
+
+.right {
+  width: 7%;
+}
+
+#filter-table {
+    display: inline-block;
+    border-collapse: separate;
+    color: red;
+    font-size: 24px;
+}
+
+#filter-table td {
+    width: 7vw;
+    padding-top: 10px;
+}
+
+#filter-button {
+    position: fixed;
+    right: -3px;
+    bottom: -3px;
+    font-size: 12px;
+    color: white;
+    width: 7vw;
+    border-color: black;
+    text-align: center;
+    padding: 15px 0px 15px 0px;
+    font-weight: bold;
+}
+
+#filter-button:hover {
+    border-color: gray;
+}
+
 /* table is where all the tracks are listed */
 table {
     width: 100%;
     border-collapse: collapse;
-    /* shift down the body to account for the fixed menu bar */
-    margin-top: 58px;
+    margin-top: 58px; /* shift down the body to account for the fixed menu bar */
     table-layout: fixed;
 }
 
 /* table row gets a line to divide it from other rows */
-tr {
-    border-bottom: 2px solid;
-    border-bottom-color: blue;
+#main-table tr {
+    border-bottom: 2px solid blue;
+    border-right: 2px solid blue;
     /* white text default, javascript for color changes*/
     color: white;
 }
 td {
-    /* the trash can was far left and the pin wasn't far right
-    this'll make it look better I think, any objections? -charles */
     text-align: center;
 }
 

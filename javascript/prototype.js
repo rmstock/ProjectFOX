@@ -135,14 +135,6 @@ function addListenersTableRows(row) {
     }, false);
 }
 
-// these are dynamically created when a row is added
-// just have to call them manually for the hardcoded ones
-addListenersTableRows('table-row-1');
-addListenersTableRows('table-row-2');
-addListenersTableRows('table-row-3');
-addListenersTableRows('table-row-4');
-addListenersTableRows('table-row-5');
-
 // transition the color as user swipes
 function fadeWithSwipe(row, distance) {
     var newColor = '#'; // RGB
@@ -204,65 +196,126 @@ function pinRowClick(clickedID) {
     document.getElementById(clickedID).classList.toggle("pinned");
 }
 
-// DEBUG STUFF
-
-// Random number from 0 to 1 - max, converted to a string
-function getRandomNumberString(max) {
-    var out = Math.floor(Math.random() * Math.floor(max));
-    return out.toString(10);
+// for DEBUGGING
+// get a random number from 0 to (max-1)
+function getRandomNumber(max) {
+    return Math.floor(Math.random() * Math.floor(max));
 }
 
-// We may be able to use this when we are automatically/dynamically creating
-// table rows in the future, but for right now it is just a debug helper
-debug_add_row.counter = 6; // "static" counter var for the table row number
+// for DEBUGGING
+// random decimal from 0 to max, converted to a padded string
+function getRandomNumberString(max) {
+    padding = (max - 1).toString(10).length;
+    var num = getRandomNumber(max);
+    out = num.toString(10);
+    if(out.length < padding) {
+        while(out.length < padding) {
+            out = "0" + out;
+        }
+    }
+    return out;
+}
+
+// update the filters based on what types are in the table
+function updateFilters() {
+    var table = document.getElementById("filter-table");
+    table.innerHTML = '';
+    var row;
+    var cell;
+    for(var i=0;i<10;i++) {
+        row = table.insertRow(-1);
+        cell = row.insertCell(-1);
+        cell.innerHTML = (i*2).toString(10);
+    }
+    return;
+}
+
+// for DEBUGGING but! can use it for coloring accuracy when we get real data
+// random accuracy with correct coloring/labeling
+function setAccuracy(cell) {
+    var type = getRandomNumber(3);
+    var accuracy;
+    var out;
+    switch(type) {
+        case 0:
+            accuracy = (10 * getRandomNumber(98) + 10);
+            out = accuracy.toString(10) + " FT";
+            cell.style.color = "green";
+            break;
+        case 1:
+            accuracy = (100 * getRandomNumber(50) + 1000);
+            out = accuracy.toString(10) + " FT";
+            cell.style.color = "yellow";
+            break;
+        case 2:
+            accuracy = (0.1 * getRandomNumber(40) + 1);
+            out = accuracy.toString(10).substring(0,3) + " NM";
+            cell.style.color = "red";
+            break;
+    }
+    cell.innerHTML = out;
+}
+
+// for DEBUGGING but! we'll able to use this when we are automatically/dynamically creating
+// table rows in the future
+debug_add_row.counter = 1; // "static" counter var for the table row number
 function debug_add_row()
 {
     var table = document.getElementById("main-table");
     var row = table.insertRow(-1); // -1 to append to the end of the table
-    row.setAttribute("id", "table-row-" + debug_add_row.counter.toString(10));
-    row.setAttribute("class", "swipe-able-row");
-    var cell0 = row.insertCell(-1);
-    var deleteButton = document.createElement("BUTTON");
-    deleteButton.setAttribute("class", "delete-icon icon");
-    deleteButton.setAttribute("onclick", "deleteRowClick(this)");
-    cell0.appendChild(deleteButton);
-    var cell1 = row.insertCell(-1);
-    cell1.innerHTML = getRandomNumberString(24)
+    var cell = row.insertCell(-1);
+    cell.innerHTML = getRandomNumberString(24)
         + ":" + getRandomNumberString(60)
         + ":" + getRandomNumberString(60);
-    var cell2 = row.insertCell(-1);
-    cell2.innerHTML = getRandomNumberString(100);
-    var cell3 = row.insertCell(-1);
-    cell3.innerHTML = getRandomNumberString(1000)
+    row.style.fontSize = "12px";
+    row.style.borderBottomColor = "#00000000";
+    row.style.borderRightColor = "#00000000";
+    row.style.position = "absolute";
+    row.style.paddingLeft = "6vw";
+    row.style.paddingTop = "10px";
+    row.style.zIndex = "1";
+    row = table.insertRow(-1); // -1 to append to the end of the table
+    row.setAttribute("id", "table-row-" + debug_add_row.counter.toString(10));
+    row.setAttribute("class", "swipe-able-row");
+    cell = row.insertCell(-1);
+    cell.innerHTML = getRandomNumberString(10);
+    cell.style.paddingTop = "30px";
+    cell.style.paddingBottom = "10px";
+    cell.style.color = "red";
+     cell = row.insertCell(-1);
+    cell.innerHTML = getRandomNumberString(1000)
         + "/" + getRandomNumberString(100);
-    var cell4 = row.insertCell(-1);
-    cell4.innerHTML = "PBJ";
-    var cell5 = row.insertCell(-1);
-    var fixButton = document.createElement("BUTTON");
-    fixButton.setAttribute("class", "buttonGroup");
-    fixButton.setAttribute("id", "FIX" + debug_add_row.counter.toString(10));
-    fixButton.setAttribute("onclick", "FIXActive()");
-    fixButton.innerHTML = "FIX";
-    fixButton.style.fontWeight = "bold";
-    cell5.appendChild(fixButton);
-    var cell6 = row.insertCell(-1);
-    var killButton = document.createElement("BUTTON");
-    killButton.setAttribute("class", "buttonGroup");
-    killButton.setAttribute("id", "KILL" + debug_add_row.counter.toString(10));
-    killButton.setAttribute("onclick", "KILLActive()");
-    killButton.innerHTML = "KILL";
-    killButton.style.fontWeight = "bold";
-    cell6.appendChild(killButton);
-    var cell7 = row.insertCell(-1);
-    var pinButton = document.createElement("BUTTON");
-    pinButton.setAttribute("id", "pin-button-" + debug_add_row.counter.toString(10));
-    pinButton.setAttribute("class", "pin-icon icon");
-    pinButton.setAttribute("onclick", "pinRowClick(this.id)");
-    cell7.appendChild(pinButton);
+    cell = row.insertCell(-1);
+    setAccuracy(cell);
+    cell = row.insertCell(-1);
+    var button = document.createElement("BUTTON");
+    button.setAttribute("class", "buttonGroup");
+    button.setAttribute("id", "FIX" + debug_add_row.counter.toString(10));
+    button.setAttribute("onclick", "FIXActive()");
+    button.innerHTML = "FIX";
+    button.style.fontWeight = "bold";
+    cell.appendChild(button);
+    cell = row.insertCell(-1);
+    button = document.createElement("BUTTON");
+    button.setAttribute("class", "buttonGroup");
+    button.setAttribute("id", "KILL" + debug_add_row.counter.toString(10));
+    button.setAttribute("onclick", "KILLActive()");
+    button.innerHTML = "KILL";
+    button.style.fontWeight = "bold";
+    cell.appendChild(button);
     addListenersTableRows('table-row-' + debug_add_row.counter.toString(10));
     debug_add_row.counter++;
+    updateFilters();
 }
 
+// for DEBUGGING
+// put some dummy tracks in the table
+for(var i=0; i<27; i++) {
+    debug_add_row();
+}
+
+// for DEBUGGING
+// update touch feedback, 'nuff said
 function updateTouchFeedback(element, start, distance, end, starty, disty) {
     element.innerHTML = (' ... vpw[' + window.innerWidth.toString(10)
             + '] scrollY[' + window.scrollY.toString(10)
