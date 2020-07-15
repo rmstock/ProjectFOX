@@ -69,15 +69,35 @@ function productSpecific(content, data) {
 }
 
 // This works. Right now it changes the color of the specific kill button clicked. Each tract will need a specific ID associated with it, so that only that tract is marked killed when the button is clicked. We will also add functionality here to send a message to the backend that this tract was killed so it can be sorted.
-function KILLActive() {
-    document.getElementById("KILL2").style.backgroundColor = "green";
-    document.getElementById("KILL2").style.color = "black";
+function KILLActive(id) {
+    document.getElementById(id).style.backgroundColor = "green";
+    document.getElementById(id).style.color = "black";
 }
 
 // This works. When the pilot clicks the fix button, it turns that tracks fix button yellow. We need to relay this to the backend still. Need the tracks ID to sync with Fix# ID so only that one track button changes color.
-function FIXActive() {
-    document.getElementById("FIX1").style.backgroundColor = "yellow";
-    document.getElementById("FIX1").style.color = "black";
+function FIXActive(id) {
+    document.getElementById(id).style.backgroundColor = "yellow";
+    document.getElementById(id).style.color = "black";
+}
+
+// When Pin Icon is Click this will add Gold Border to the Task and Move it to the top.
+function GoldBorderandPinToTop(id) {
+    var rows = document.getElementById("table").rows;
+    document.getElementById("unique1").style.outline = "2px solid black"; // Fixs werid outline overlap
+
+    parent = rows[id].parentNode;
+    if(document.getElementById(id).style.borderTopColor!='gold' &&
+            document.getElementById(id).style.borderBottemColor!='gold') { //Checks to see if outline is already highlighted
+        document.getElementById(id).style.borderTopColor='gold';
+        document.getElementById(id).style.borderBottomColor='gold';
+        document.getElementById(id).style.outline = "2px solid gold";
+        parent.insertBefore(rows[id],rows[1]); // This line makes it change the 2 second position because it looks like you have a place holder row at the top for the catorgories.
+    } else {
+        document.getElementById(id).style.borderTopColor='blue';
+        document.getElementById(id).style.borderBottomColor='blue';
+        document.getElementById(id).style.outline = null;
+        parent.insertBefore(rows[id],rows[rows]); // Unpinning a task will make it move all the way to the bottom and unhighlight its border.
+    }
 }
 
 // add a listener for a row
