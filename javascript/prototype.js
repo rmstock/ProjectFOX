@@ -84,17 +84,16 @@ function FIXActive(id) {
 function GoldBorderandPinToTop(id) {
     var rows = document.getElementById("table").rows;
     document.getElementById("unique1").style.outline = "2px solid black"; // Fixs werid outline overlap
-
     parent = rows[id].parentNode;
-    if(document.getElementById(id).style.borderTopColor!='gold' &&
-            document.getElementById(id).style.borderBottemColor!='gold') { //Checks to see if outline is already highlighted
-        document.getElementById(id).style.borderTopColor='gold';
-        document.getElementById(id).style.borderBottomColor='gold';
+    if(document.getElementById(id).style.borderTopColor != 'gold' &&
+            document.getElementById(id).style.borderBottemColor != 'gold') { //Checks to see if outline is already highlighted
+        document.getElementById(id).style.borderTopColor = 'gold';
+        document.getElementById(id).style.borderBottomColor = 'gold';
         document.getElementById(id).style.outline = "2px solid gold";
         parent.insertBefore(rows[id],rows[1]); // This line makes it change the 2 second position because it looks like you have a place holder row at the top for the catorgories.
     } else {
-        document.getElementById(id).style.borderTopColor='blue';
-        document.getElementById(id).style.borderBottomColor='blue';
+        document.getElementById(id).style.borderTopColor = 'blue';
+        document.getElementById(id).style.borderBottomColor = 'blue';
         document.getElementById(id).style.outline = null;
         parent.insertBefore(rows[id],rows[rows]); // Unpinning a task will make it move all the way to the bottom and unhighlight its border.
     }
